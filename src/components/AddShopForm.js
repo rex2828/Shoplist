@@ -25,7 +25,7 @@ const AddShopForm = () => {
         setIsClosedateValid(true);
         setIsOpendateValid(true);
 
-        if (!(/^[a-zA-Z]+$/.test(name)) && name.trim().length <= 0) {
+        if (!(/^[a-zA-Z]+$/.test(name)) || name.trim().length <= 0) {
             setIsNameValid(false);
             return;
         }
