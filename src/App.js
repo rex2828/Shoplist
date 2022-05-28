@@ -1,23 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
-
+import AddShopForm from './components/AddShopForm';
+import Navbar from './components/Header';
+import { useSelector } from 'react-redux';
+import Shoplist from './components/Shoplist';
+import { useDispatch } from 'react-redux';
+import { uiActions } from './store/ui-slice'
+import BootstrapModal from './components/BootstrapModal';
 function App() {
+  const dispatch = useDispatch()
+  const showForm = useSelector(state => state.ui.formIsVisible)
+  const showModal = useSelector(state => state.ui.modal)
+
+  const onCloseHandler = () => {
+    dispatch(uiActions.modalVisible())
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Navbar formOpen={showForm} />
+      {showForm && <AddShopForm />}
+      <Shoplist />
+      {showModal && <BootstrapModal onClose={onCloseHandler} show={showModal.modalIsVisible} />}
     </div>
   );
 }
